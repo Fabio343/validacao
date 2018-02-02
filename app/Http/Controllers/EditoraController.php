@@ -17,9 +17,14 @@ class EditoraController extends Controller
       return view('editora.cria');
     }
 
-    public function armazena(){
-      Editora::create(Request()->all());
-      return redirect('/editoras');
-    }
+    public function armazena()
+       {
+           $this->validate(request(), [
+           'nome' => 'required|min:2|max:255',
+           'email' => 'required|email'
+           ]);
+           Editora::create(request()->all());
+           return redirect('/editoras');
+      }  
 
 }
